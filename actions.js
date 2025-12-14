@@ -23,7 +23,7 @@ module.exports = function (self) {
 			},
 		},
 		toggle: {
-			name: 'Play/Pause Toggle',
+			name: 'Toggle Play/Pause',
 			options: [],
 			callback: async () => {
 				try {
@@ -34,7 +34,7 @@ module.exports = function (self) {
 			},
 		},
 		next: {
-			name: 'Next Track',
+			name: 'Next',
 			options: [],
 			callback: async () => {
 				try {
@@ -45,7 +45,7 @@ module.exports = function (self) {
 			},
 		},
 		previous: {
-			name: 'Previous Track',
+			name: 'Previous',
 			options: [],
 			callback: async () => {
 				try {
