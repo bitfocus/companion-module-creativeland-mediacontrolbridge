@@ -543,9 +543,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"companion-module-media-control-bridge@workspace:.":
+"companion-module-creativeland-mediacontrolbridge@workspace:.":
   version: 0.0.0-use.local
-  resolution: "companion-module-media-control-bridge@workspace:."
+  resolution: "companion-module-creativeland-mediacontrolbridge@workspace:."
   dependencies:
     "@companion-module/base": "npm:~1.12.1"
     "@companion-module/tools": "npm:^2.4.2"
