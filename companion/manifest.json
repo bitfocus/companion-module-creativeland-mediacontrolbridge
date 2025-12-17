@@ -1,6 +1,6 @@
 {
-	"id": "media-control-bridge",
-	"name": "media-control-bridge",
+	"id": "companion-module-creativeland-mediacontrolbridge",
+	"name": "companion-module-creativeland-mediacontrolbridge",
 	"shortname": "mcb",
 	"description": "Control macOS media players via Media Control Bridge API",
 	"version": "1.0.0",
