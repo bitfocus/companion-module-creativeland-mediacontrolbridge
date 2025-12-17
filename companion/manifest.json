@@ -1,9 +1,9 @@
 {
-	"id": "creativeland-mediacontrolbridge",
-	"name": "creativeland-mediacontrolbridge",
+	"id": "companion-module-creativeland-mediacontrolbridge",
+	"name": "companion-module-creativeland-mediacontrolbridge",
 	"shortname": "mcb",
 	"description": "Control macOS media players via Media Control Bridge API",
-	"version": "1.0.2",
+	"version": "1.0.4",
 	"license": "MIT",
 	"repository": "git+https://github.com/bitfocus/companion-module-creativeland-mediacontrolbridge.git",
 	"bugs": "https://github.com/bitfocus/companion-module-creativeland-mediacontrolbridge/issues",
