@@ -62,9 +62,9 @@ module.exports = async function (self) {
 			callback: async () => {
 				if (self.mediaStatus.track && self.mediaStatus.track.artwork) {
 					try {
-						const fetch = require('node-fetch')
 						const response = await fetch(self.mediaStatus.track.artwork)
-						const buffer = await response.buffer()
+						const arrayBuffer = await response.arrayBuffer()
+						const buffer = Buffer.from(arrayBuffer)
 						return {
 							png64: buffer.toString('base64'),
 						}

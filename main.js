@@ -4,7 +4,6 @@ const UpdateActions = require('./actions')
 const UpdateFeedbacks = require('./feedbacks')
 const UpdateVariableDefinitions = require('./variables')
 const WebSocket = require('ws')
-const fetch = require('node-fetch')
 
 class ModuleInstance extends InstanceBase {
 	constructor(internal) {
@@ -59,10 +58,10 @@ class ModuleInstance extends InstanceBase {
 			{
 				type: 'textinput',
 				id: 'host',
-				label: 'Target IP',
+				label: 'Target IP or Hostname',
 				width: 8,
 				default: 'localhost',
-				regex: Regex.IP,
+				regex: Regex.HOSTNAME,
 			},
 			{
 				type: 'textinput',
