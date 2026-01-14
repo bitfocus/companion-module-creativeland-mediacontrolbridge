@@ -33,23 +33,31 @@ class ModuleInstance extends InstanceBase {
 	// When module gets deleted
 	async destroy() {
 		this.log('debug', 'destroy')
-		if (this.reconnectTimer) {
-			clearTimeout(this.reconnectTimer)
-			this.reconnectTimer = null
-		}
-		if (this.ws) {
-			this.ws.close()
-			this.ws = null
-		}
+		this.stopReconnect()
+		this.closeWebSocket()
 	}
 
 	async configUpdated(config) {
 		this.config = config
 		// Reconnect with new config
-		if (this.ws) {
-			this.ws.close()
-		}
+		this.stopReconnect()
+		this.closeWebSocket()
 		this.connectWebSocket()
+	}
+
+	stopReconnect() {
+		if (this.reconnectTimer) {
+			clearTimeout(this.reconnectTimer)
+			this.reconnectTimer = null
+		}
+	}
+
+	closeWebSocket() {
+		if (this.ws) {
+			this.ws.removeAllListeners()
+			this.ws.close()
+			this.ws = null
+		}
 	}
 
 	// Return config fields for web config
@@ -75,6 +83,10 @@ class ModuleInstance extends InstanceBase {
 	}
 
 	connectWebSocket() {
+		// Clean up any existing connection first
+		this.stopReconnect()
+		this.closeWebSocket()
+
 		const host = this.config.host || 'localhost'
 		const port = this.config.port || '6262'
 		const url = `ws://${host}:${port}/ws`
@@ -87,10 +99,7 @@ class ModuleInstance extends InstanceBase {
 			this.ws.on('open', () => {
 				this.log('info', 'WebSocket connected')
 				this.updateStatus(InstanceStatus.Ok)
-				if (this.reconnectTimer) {
-					clearTimeout(this.reconnectTimer)
-					this.reconnectTimer = null
-				}
+				this.stopReconnect()
 			})
 
 			this.ws.on('message', (data) => {
@@ -110,9 +119,13 @@ class ModuleInstance extends InstanceBase {
 			this.ws.on('close', () => {
 				this.log('warn', 'WebSocket disconnected')
 				this.updateStatus(InstanceStatus.Disconnected)
-				this.ws = null
 
-				// Attempt to reconnect after 5 seconds
+				// Only set ws to null if it's still the current connection
+				if (this.ws) {
+					this.ws = null
+				}
+
+				// Attempt to reconnect after 5 seconds (only if no timer already running)
 				if (!this.reconnectTimer) {
 					this.reconnectTimer = setTimeout(() => {
 						this.reconnectTimer = null
